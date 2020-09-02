@@ -8,16 +8,9 @@ namespace Player
     public struct User
     {
         // Constants:
-        private const char k_Quit = 'Q';
-        private const char k_Yes = 'Y';
-        private const char k_Empty = ' ';
         private const short k_RowIndex = 1;
         private const short k_ColIndex = 0;
-        private const char k_MoveUp = 'X';
-        private const char k_MoveDown = 'O';
-        private const char k_MoveUpKing = 'K';
-        private const char k_MoveDownKing = 'U';
-
+        
         // Data members:
         private readonly string m_Name;
         private ushort m_Score;
