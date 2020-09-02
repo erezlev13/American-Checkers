@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CheckerPiece;
 using CheckersBoard;
 using UI;
+
 namespace Player
 {
     public struct User
