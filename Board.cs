@@ -5,20 +5,21 @@ namespace CheckersBoard
 {
     public class Board
     {
+        // Constants:
+        private const char k_BlankChecker = ' ';
+        private const int K_smallestBoardSize = 6;
+
+        // Data members:
+        private readonly char[,] m_CheckersBoard;
+        private readonly ushort m_SizeOfBoard;
+        
+        // Enums:
         public enum eBoardSize
         {
             small = 6,
             medium = 8, 
             large = 10
         }
-
-        // Constants
-        private const char k_BlankChecker = ' ';
-        private const int K_smallestBoardSize = 6;
-
-        // Data members
-        private readonly char[,] m_CheckersBoard;
-        private readonly ushort m_SizeOfBoard;
 
         private static string createLineString(ushort i_SizeOfBoard) // Creates the line that seperates between two checker's rows.
         {
@@ -200,8 +201,5 @@ leftIndex);
         {
             return i_SizeOfBoard == 6 || i_SizeOfBoard == 8 || i_SizeOfBoard == 10;
         }
-
-        
-
     }
 }
