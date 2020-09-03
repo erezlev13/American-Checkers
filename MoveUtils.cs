@@ -51,12 +51,12 @@ namespace Player
 
             if (isAvailableCellUpRightWay(i_GameBoard, i_CurrentCheckerPiece))
             {
-                addToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionRightStr);
+                AddToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionRightStr);
             }
 
             if (isAvailableCellUpLeftWay(i_GameBoard, i_CurrentCheckerPiece))
             {
-                addToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionLeftStr);
+                AddToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionLeftStr);
             }
         }
 
@@ -86,12 +86,12 @@ namespace Player
 
             if (isAvailableCellDownRightWay(i_GameBoard, i_CurrentCheckerPiece))
             {
-                addToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionRightStr);
+                AddToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionRightStr);
             }
 
             if (isAvailableCellDownLeftWay(i_GameBoard, i_CurrentCheckerPiece))
             {
-                addToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionLeftStr);
+                AddToDict(ref io_OptionsMove, i_CurrentCheckerPiece, positionLeftStr);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Player
             return i_GameBoard.IsCheckerAvailable(newRowIndex, newColLeftIndex);
         }
 
-        public static void addToDict(ref Dictionary<string, List<string>> io_Options, CheckersPiece i_CurrentChecker, string i_OptionPosition)
+        public static void AddToDict(ref Dictionary<string, List<string>> io_Options, CheckersPiece i_CurrentChecker, string i_OptionPosition)
         {
             string currentPosition = GetStringIndexes(i_CurrentChecker.RowIndex, i_CurrentChecker.ColIndex);
             if (!io_Options.ContainsKey(currentPosition))
