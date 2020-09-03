@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using CheckerPiece;
 using CheckersBoard;
 using UI;
-
 namespace Player
 {
     public struct User
     {
         // Constants:
+        private const char k_Quit = 'Q';
+        private const char k_Yes = 'Y';
+        private const char k_Empty = ' ';
         private const short k_RowIndex = 1;
         private const short k_ColIndex = 0;
-        
+        private const char k_MoveUp = 'X';
+        private const char k_MoveDown = 'O';
+        private const char k_MoveUpKing = 'K';
+        private const char k_MoveDownKing = 'U';
+
         // Data members:
         private readonly string m_Name;
         private ushort m_Score;
@@ -306,7 +312,12 @@ namespace Player
                 playerMustCapture(io_GameBoard, ref io_PositionFrom, ref io_PositionTo,
                     ref checkerPieceToMove, i_RivalPlayerPieces, ref rivalCheckerPiece);
             }
-            
+            else
+            {
+                computerMustCapture(io_GameBoard, ref io_PositionFrom, ref io_PositionTo,
+                    ref checkerPieceToMove, i_RivalPlayerPieces, ref rivalCheckerPiece);
+            }
+
             // Checks if there's an optional capture, and updating the data structure.
             MakeCapture(io_GameBoard, ref checkerPieceToMove, ref io_PositionTo, ref rivalCheckerPiece);
             checkerPieceToMove.GotToOtherSideOfBoard(ref io_GameBoard);
@@ -321,7 +332,7 @@ namespace Player
                 ref io_RivalChecker))
             {
                 Console.WriteLine("Invalid move. player must capture.");
-                string move = UserIntterface.GetValidMove(i_GameBoard);
+                string move = UserInterface.GetValidMove(i_GameBoard);
                 Validation.ParsePositions(move, ref io_PositionFrom, ref io_PositionTo);
                 //Validation.UserTurnConversation(Name, ref io_PositionFrom, ref io_PositionTo);
             }
@@ -416,7 +427,7 @@ namespace Player
             while (!isValidMove(i_GameBoard, io_PositionFrom, io_PositionTo, ref io_CurrentChecker))
             {
                 Console.WriteLine("Invalid move. player must move with to free positions.");
-                string move = UserIntterface.GetValidMove(i_GameBoard);
+                string move = UserInterface.GetValidMove(i_GameBoard);
                 Validation.ParsePositions(move, ref io_PositionFrom, ref io_PositionTo);
                 //Validation.UserTurnConversation(Name, ref io_PositionFrom, ref io_PositionTo);
             }
@@ -539,7 +550,7 @@ namespace Player
 
             foreach (CheckersPiece checkerPiece in m_CheckersPiece)
             {
-                if (CaptureUtils.isSamePosition(checkerPiece, i_RowIndex, i_ColIndex))
+                if (CaptureUtils.IsSamePosition(checkerPiece, i_RowIndex, i_ColIndex))
                 {
                     foundCheckerPiece = checkerPiece;
                     break;
@@ -547,6 +558,39 @@ namespace Player
             }
 
             return foundCheckerPiece;
+        }
+
+        private void computerMustCapture(Board i_GameBoard, ref string io_PositionFrom, ref string io_PositionTo,
+            ref CheckersPiece io_CurrentChecker, List<CheckersPiece> i_RivalPieces, ref CheckersPiece io_RivalChecker)
+        {
+            while (!isValidCapture(i_GameBoard, io_PositionFrom, io_PositionTo, ref io_CurrentChecker,
+                i_RivalPieces,
+                ref io_RivalChecker))
+            {
+                int randomKey = new Random().Next(Moves.Keys.Count);
+                io_PositionFrom = getRandomKey(randomKey);
+                int randomValue = new Random().Next(Moves[io_PositionFrom].Count);
+                io_PositionTo = Moves[io_PositionFrom][randomValue];
+            }
+        }
+
+        private string getRandomKey(int i_RandomIndex)
+        {
+            int i = 0;
+            string getPositionFrom = null;
+
+            foreach (string positionFrom in Moves.Keys)
+            {
+                if (i == i_RandomIndex)
+                {
+                    getPositionFrom = positionFrom;
+                    break;
+                }
+
+                i++;
+            }
+
+            return getPositionFrom;
         }
 
         public bool HasAnotherTurn()
