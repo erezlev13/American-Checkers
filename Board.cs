@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace CheckersBoard
@@ -12,48 +12,24 @@ namespace CheckersBoard
         // Data members:
         private readonly char[,] m_CheckersBoard;
         private readonly ushort m_SizeOfBoard;
-        
+
         // Enums:
         public enum eBoardSize
         {
-            small = 6,
-            medium = 8, 
-            large = 10
+            Small = 6,
+            Medium = 8,
+            Large = 10
         }
 
-        private static string createLineString(ushort i_SizeOfBoard) // Creates the line that seperates between two checker's rows.
-        {
-            StringBuilder EqualsLine = new StringBuilder(" ========================");
-
-            // Adding equal signs According to the size of the board.
-            for (int i = K_smallestBoardSize; i < i_SizeOfBoard; i++)
-            {
-                EqualsLine.Append("====");
-            }
-
-            return EqualsLine.ToString();
-        }
-
-        private static void correctTopindex(ref StringBuilder checkerBoard, ushort i_SizeOfBoard) // prints top indexes of the board 
-        {
-            char letterIndex = 'G';
-
-            // Adding Top Indexes According to the size of the board.
-            for (int i = K_smallestBoardSize; i < i_SizeOfBoard; i++)
-            {
-                checkerBoard.AppendFormat("{0}   ", letterIndex);
-                letterIndex++;
-            }
-        }
-
-        public Board(ushort i_SizeOfBoard) // Constructor.
+        // Constructors:
+        public Board(ushort i_SizeOfBoard) 
         {   
             m_CheckersBoard = new char[i_SizeOfBoard, i_SizeOfBoard];
             m_SizeOfBoard = i_SizeOfBoard;
             this.InitializeBoard();
         }
 
-        // Properties
+        // Properties:
         public ushort SizeOfBoard
         {
             get
@@ -67,6 +43,32 @@ namespace CheckersBoard
             get
             {
                 return m_CheckersBoard;
+            }
+        }
+
+        // Methods:
+        private static string createLineString(ushort i_SizeOfBoard) // Creates the line that seperates between two checker's rows.
+        {
+            StringBuilder EqualsLine = new StringBuilder(" ========================");
+
+            // Adding equal signs According to the size of the board.
+            for (int i = K_smallestBoardSize; i < i_SizeOfBoard; i++)
+            {
+                EqualsLine.Append("====");
+            }
+
+            return EqualsLine.ToString();
+        }
+
+        private static void correctTopindex(ref StringBuilder io_CheckerBoard, ushort i_SizeOfBoard) // prints top indexes of the board 
+        {
+            char letterIndex = 'G';
+
+            // Adding Top Indexes According to the size of the board.
+            for (int i = K_smallestBoardSize; i < i_SizeOfBoard; i++)
+            {
+                io_CheckerBoard.AppendFormat("{0}   ", letterIndex);
+                letterIndex++;
             }
         }
 
@@ -140,21 +142,21 @@ namespace CheckersBoard
             Console.WriteLine(CheckersBoard);
         }
 
-        private void addAllCheckersToBoard(ref StringBuilder CheckersBoard, ref string lineString) // Add lines and checker pieces to checker Board.
+        private void addAllCheckersToBoard(ref StringBuilder io_CheckersBoard, ref string io_LineString) // Add lines and checker pieces to checker Board.
         {
             char leftIndex = 'a';
             for (int i = 0; i < m_SizeOfBoard; i++)
             {
-                CheckersBoard.AppendFormat(
+                io_CheckersBoard.AppendFormat(
                     @"
 {0}
 {1}|",
-lineString,
+io_LineString,
 leftIndex);
 
                 for (int j = 0; j < m_SizeOfBoard; j++)
                 {
-                    CheckersBoard.AppendFormat(" {0} |", m_CheckersBoard[i, j]); // Add to stringBuilder Checker with it's content
+                    io_CheckersBoard.AppendFormat(" {0} |", m_CheckersBoard[i, j]); // Add to stringBuilder Checker with it's content
                 }
 
                 leftIndex++; // Increases the row index. 
@@ -166,9 +168,9 @@ leftIndex);
             return IsCheckerValidPosition(i_RowIndex, i_ColIndex) && m_CheckersBoard[i_RowIndex, i_ColIndex] == k_BlankChecker;
         }
 
-        public ushort GetIndexInBoard(ref string i_DestinationChecker, out ushort o_colIndex) // Gets an index according to the name of checker. 
+        public ushort GetIndexInBoard(ref string i_DestinationChecker, out ushort o_ColIndex) // Gets an index according to the name of checker. 
         {
-            o_colIndex = (ushort)(i_DestinationChecker[0] - 'A');
+            o_ColIndex = (ushort)(i_DestinationChecker[0] - 'A');
             return (ushort)(i_DestinationChecker[1] - 'a');
         }
 
@@ -191,13 +193,13 @@ leftIndex);
         }
 
         // Update the board after a checker piece eat another.
-        public void UpdateAfterEating(ushort i_row, ushort i_Col, ushort i_newRow, ushort i_NewCol, ushort i_RowTokill, ushort i_ColTokill)
+        public void UpdateAfterEating(ushort i_Row, ushort i_Col, ushort i_NewRow, ushort i_NewCol, ushort i_RowToKill, ushort i_ColToKill)
         {
-            UpdateBoardAccordingToPlayersMove(i_row, i_Col, i_newRow, i_NewCol);
-            DeleteCheckerPieceFromBoard(i_RowTokill, i_ColTokill);
+            UpdateBoardAccordingToPlayersMove(i_Row, i_Col, i_NewRow, i_NewCol);
+            DeleteCheckerPieceFromBoard(i_RowToKill, i_ColToKill);
         }
         
-        public static bool isValidBoardSize( ushort i_SizeOfBoard)
+        public static bool isValidBoardSize(ushort i_SizeOfBoard)
         {
             return i_SizeOfBoard == 6 || i_SizeOfBoard == 8 || i_SizeOfBoard == 10;
         }
