@@ -1,25 +1,18 @@
-﻿using System;
+using System;
 using CheckersBoard;
 
 namespace CheckerPiece
 {
    public class CheckersPiece
-    {
-        public enum ePieceKind
-        {
-          MainPlayerTool= 'O',
-          SecondPlayerTool='X', 
-          MainPlayerKing = 'U',
-          SecondPlayerKing= 'K'
-        }
-
-        // Members
+   {
+       // Data Members:
         private bool m_IsKing;
         private ePieceKind m_PieceKind;
         private bool m_IsAlive;
         private ushort m_RowIndex;
         private ushort m_ColIndex;
 
+        // Constructors:
         public CheckersPiece(ePieceKind i_PieceKind, ushort i_RowIndex, ushort i_ColIndex) // Constructor.
         {
             m_IsKing = false;
@@ -29,8 +22,17 @@ namespace CheckerPiece
             m_ColIndex = i_ColIndex;
         }
 
-        // Prpoerties
-       public ePieceKind PieceKind
+        // Enums:
+        public enum ePieceKind
+        {
+            MainPlayerTool = 'O',
+            SecondPlayerTool = 'X',
+            MainPlayerKing = 'U',
+            SecondPlayerKing = 'K'
+        }
+
+        // Properties:
+        public ePieceKind PieceKind
         {
             get
             {
