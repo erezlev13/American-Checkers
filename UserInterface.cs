@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using CheckersBoard;
 using CheckerPiece;
+
 namespace UI
 {
-   public class UserIntterface
+   public class UserInterface
     {
         public static string GetValidUserName()
         {
@@ -24,15 +25,15 @@ namespace UI
             return playerName;
         }
 
-            private static bool IsValidUserName(string nameOfPlayer)
+            private static bool IsValidUserName(string i_NameOfPlayer)
             {
-                bool isValidName = nameOfPlayer.Length <= 20 && nameOfPlayer.Length > 0;
+                bool isValidName = i_NameOfPlayer.Length <= 20 && i_NameOfPlayer.Length > 0;
 
                 if (isValidName)
                 {
-                    for (int i = 0; i < nameOfPlayer.Length; i++)
+                    for (int i = 0; i < i_NameOfPlayer.Length; i++)
                     {
-                        isValidName = isValidName && char.IsLetter(nameOfPlayer[i]);
+                        isValidName = isValidName && char.IsLetter(i_NameOfPlayer[i]);
                     }
                 }
 
@@ -72,13 +73,13 @@ namespace UI
             return choice;
         }
 
-        private static char getValidchoice(string PlayerChoice)
+        private static char getValidchoice(string i_PlayerChoice)
         {
             char choice;
-            while (!char.TryParse(PlayerChoice, out choice) || (choice != '1' && choice != '2'))
+            while (!char.TryParse(i_PlayerChoice, out choice) || (choice != '1' && choice != '2'))
             {
                 Console.WriteLine("invalid choice. please try again:");
-                PlayerChoice = Console.ReadLine();
+                i_PlayerChoice = Console.ReadLine();
             }
 
             return choice;
@@ -109,26 +110,26 @@ namespace UI
         {
             return i_MoveToPreform == "Q" || isLegalMove(i_MoveToPreform,i_Board);
         }
-        public static bool isLegalMove(string i_moveToPreform,Board i_Board)
+        public static bool isLegalMove(string i_MoveToPreform,Board i_Board)
         {
-            return (isLegalMovePattern(i_moveToPreform) && IsValidBoardMove(i_moveToPreform, i_Board)); 
+            return (isLegalMovePattern(i_MoveToPreform) && IsValidBoardMove(i_MoveToPreform, i_Board)); 
 
         }
-        public static bool isLegalMovePattern(string i_moveToPreform)
+        public static bool isLegalMovePattern(string i_MoveToPreform)
         {
-                return i_moveToPreform.Length == 5 && 
-                char.IsUpper(i_moveToPreform[0]) &&
-                char.IsLower(i_moveToPreform[1]) &&
-                i_moveToPreform[2] == '>' &&
-                char.IsUpper(i_moveToPreform[3]) &&
-                char.IsLower(i_moveToPreform[4]);
+                return i_MoveToPreform.Length == 5 && 
+                char.IsUpper(i_MoveToPreform[0]) &&
+                char.IsLower(i_MoveToPreform[1]) &&
+                i_MoveToPreform[2] == '>' &&
+                char.IsUpper(i_MoveToPreform[3]) &&
+                char.IsLower(i_MoveToPreform[4]);
         }
 
-       public static bool  IsValidBoardMove(string i_moveToPreform, Board i_Board)
+       public static bool  IsValidBoardMove(string i_MoveToPreform, Board i_Board)
         {
             string location = string.Empty;
             string destination = string.Empty;
-            // Validation.ParsePositions(i_moveToPreform, ref location, ref destination);
+            // Validation.ParsePositions(i_MoveToPreform, ref location, ref destination);
             
             return checkIndexes(i_Board, location, destination);
         }
@@ -163,11 +164,9 @@ namespace UI
                 Console.WriteLine("(X)");
 
             }
-            string currentMove = UserIntterface.GetValidMove(i_GameBoard);
+            string currentMove = UserInterface.GetValidMove(i_GameBoard);
 
             return currentMove;
         }
-
     }
-
 }
