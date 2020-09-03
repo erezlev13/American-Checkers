@@ -1,5 +1,4 @@
-﻿using System;
-using CheckersBoard;
+using Game;
 
 namespace Checkers
 {
@@ -7,7 +6,8 @@ namespace Checkers
     {
         public static void Main()
         {
-            Game.CheckersGame.runGame();
+            CheckersGame.RunGame();
         }
     }
 }
+
