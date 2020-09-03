@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Player;
 using CheckersBoard;
 using CheckerPiece;
@@ -8,19 +8,19 @@ namespace Game
 {
     public class CheckersGame
     {
-        public static void runGame()
+        public static void RunGame()
         {
             bool isComputer = false;
-            string firstPlayerName = UserIntterface.GetValidUserName();
+            string firstPlayerName = UserInterface.GetValidUserName();
             User firstPlayer = new User(firstPlayerName, User.ePlayerType.MainPlayer,isComputer);
-            ushort boardSize = UserIntterface.GetValidBoardSize();
+            ushort boardSize = UserInterface.GetValidBoardSize();
             Board gameBoard = new Board(boardSize);
-            char choice = UserIntterface.GetRival();
+            char choice = UserInterface.GetRival();
             string rivalName = string.Empty;
            
             if (choice == '1')
             {
-                rivalName = UserIntterface.GetValidUserName();
+                rivalName = UserInterface.GetValidUserName();
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Game
                 i_GameBoard.printBoard();
                 if (isFirstPlayerTurn)
                 {
-                    currentMove = UserIntterface.PlayerTurn(i_GameBoard, i_FirstPlayer.Name,CheckersPiece.ePieceKind.MainPlayerTool);
+                    currentMove = UserInterface.PlayerTurn(i_GameBoard, i_FirstPlayer.Name,CheckersPiece.ePieceKind.MainPlayerTool);
                     if (currentMove =="Q")
                     {
                         quitGame(i_FirstPlayer, i_SecondPlayer, ref isGameFinished); 
@@ -65,7 +65,7 @@ namespace Game
                 }
                 else
                 {
-                    currentMove = UserIntterface.PlayerTurn(i_GameBoard, i_SecondPlayer.Name, CheckersPiece.ePieceKind.SecondPlayerTool);
+                    currentMove = UserInterface.PlayerTurn(i_GameBoard, i_SecondPlayer.Name, CheckersPiece.ePieceKind.SecondPlayerTool);
                     Validation.ParsePositions(currentMove, ref currentLocation, ref destinationPosition);
                     if (currentMove == "Q")
                     {
@@ -84,13 +84,13 @@ namespace Game
             }
 
             printResult(i_FirstPlayer, i_SecondPlayer);
-           if(UserIntterface.WouldLikeToPlayAgain())
+           if(UserInterface.WouldLikeToPlayAgain())
             { 
                 playGame(i_FirstPlayer, i_SecondPlayer, i_GameBoard);
             }
         }
 
-private static void printResult(User i_firstPlayer, User i_AnotherPlayer)
+        private static void printResult(User i_firstPlayer, User i_AnotherPlayer)
         {
             string winner = i_AnotherPlayer.Name;
             int firstPlayerScore = i_firstPlayer.Score;
@@ -118,9 +118,8 @@ winner);
         {
             i_player.Score = 0;
             i_RivalPlayer.Score = 0;
-            UserIntterface.PrintForfeitMessage(i_player.Name, i_RivalPlayer.Name);
+            UserInterface.PrintForfeitMessage(i_player.Name, i_RivalPlayer.Name);
             isGameFinished = true;
         }
-
     }
 }
