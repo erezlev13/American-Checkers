@@ -48,14 +48,13 @@ namespace Player
         {
             bool canCaptureLeft, canCaptureRight;
             ushort rowIndex, colIndex;
-            // ushort newRowIndex, newColIndex;
             CheckersPiece rivalCheckerPieceUpRight, rivalCheckerPieceUpLeft;
 
             // Check if can capture up-right rival.
             rowIndex = (ushort)(i_Current.RowIndex - 1);
             colIndex = (ushort)(i_Current.ColIndex + 1);
             rivalCheckerPieceUpRight = FindCheckerPiece(rowIndex, colIndex, i_RivalCheckersPiece);
-            canCaptureRight = TryInsertCapturePosition(
+            canCaptureRight = tryInsertCapturePosition(
                 i_GameBoard, i_Current,
                 (ushort)(i_Current.RowIndex - 2), (ushort)(i_Current.ColIndex + 2),
                 rivalCheckerPieceUpRight, ref io_CapturePositions);
@@ -64,7 +63,7 @@ namespace Player
             rowIndex = (ushort)(i_Current.RowIndex - 1);
             colIndex = (ushort)(i_Current.ColIndex - 1);
             rivalCheckerPieceUpLeft = FindCheckerPiece(rowIndex, colIndex, i_RivalCheckersPiece);
-            canCaptureLeft = TryInsertCapturePosition(
+            canCaptureLeft = tryInsertCapturePosition(
                 i_GameBoard, i_Current,
                 (ushort)(i_Current.RowIndex - 2), (ushort)(i_Current.ColIndex - 2),
                 rivalCheckerPieceUpLeft, ref io_CapturePositions);
@@ -77,14 +76,13 @@ namespace Player
         { 
             bool canCaptureRight, canCaptureLeft;
             ushort rowIndex, colIndex;
-            // ushort newRowIndex, newColIndex;
             CheckersPiece rivalCheckerPieceDownRight, rivalCheckerPieceDownLeft;
 
             // Check if can capture down-right rival.
             rowIndex = (ushort)(i_Current.RowIndex + 1);
             colIndex = (ushort)(i_Current.ColIndex + 1);
             rivalCheckerPieceDownRight = FindCheckerPiece(rowIndex, colIndex, i_RivalCheckersPiece);
-            canCaptureRight = TryInsertCapturePosition(
+            canCaptureRight = tryInsertCapturePosition(
                 i_GameBoard, i_Current,
                 (ushort)(i_Current.RowIndex + 2), (ushort)(i_Current.ColIndex + 2),
                 rivalCheckerPieceDownRight, ref io_CapturePositions);
@@ -93,7 +91,7 @@ namespace Player
             rowIndex = (ushort)(i_Current.RowIndex + 1);
             colIndex = (ushort)(i_Current.ColIndex - 1);
             rivalCheckerPieceDownLeft = FindCheckerPiece(rowIndex, colIndex, i_RivalCheckersPiece);
-            canCaptureLeft = TryInsertCapturePosition(
+            canCaptureLeft = tryInsertCapturePosition(
                 i_GameBoard, i_Current,
                 (ushort)(i_Current.RowIndex + 2), (ushort)(i_Current.ColIndex - 2),
                 rivalCheckerPieceDownLeft, ref io_CapturePositions);
@@ -101,7 +99,7 @@ namespace Player
             return canCaptureLeft || canCaptureRight;
         }
 
-        private static bool TryInsertCapturePosition(
+        private static bool tryInsertCapturePosition(
             Board i_GameBoard, CheckersPiece i_CurrentChecker,
             ushort i_RowIndex, ushort i_ColIndex,
             CheckersPiece i_RivalChecker, ref Dictionary<string, List<string>> io_CapturePositions)
@@ -111,7 +109,7 @@ namespace Player
             if (i_RivalChecker != null && isAvailableCaptureCell(i_GameBoard, i_RowIndex, i_ColIndex))
             {
                 string captureIndex = MoveUtils.GetStringIndexes(i_RowIndex, i_ColIndex);
-                MoveUtils.addToDict(ref io_CapturePositions, i_CurrentChecker, captureIndex);
+                MoveUtils.AddToDict(ref io_CapturePositions, i_CurrentChecker, captureIndex);
                 canInsert = true;
             }
 
@@ -130,7 +128,7 @@ namespace Player
 
             foreach (CheckersPiece piece in i_RivalChckersPiece)
             {
-                if (isSamePosition(piece, i_RowIndex, i_ColIndex))
+                if (IsSamePosition(piece, i_RowIndex, i_ColIndex))
                 {
                     currentCheckerPiece = piece;
                     break;
@@ -140,7 +138,7 @@ namespace Player
             return currentCheckerPiece;
         }
 
-        public static bool isSamePosition(CheckersPiece i_ChckerPiece, ushort i_RowIndex, ushort i_ColIndex)
+        public static bool IsSamePosition(CheckersPiece i_ChckerPiece, ushort i_RowIndex, ushort i_ColIndex)
         {
             return i_ChckerPiece.ColIndex == i_ColIndex && i_ChckerPiece.RowIndex == i_RowIndex;
         }
