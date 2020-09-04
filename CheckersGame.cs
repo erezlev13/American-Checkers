@@ -1,6 +1,6 @@
 using System;
 using Player;
-using CheckersBoard;
+using GameBoard;
 using CheckerPiece;
 using UI;
 
