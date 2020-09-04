@@ -1,6 +1,6 @@
 using System;
 using CheckerPiece;
-using CheckersBoard;
+using GameBoard;
 
 namespace Player
 {
