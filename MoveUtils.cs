@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CheckersBoard;
+using GameBoard;
 using CheckerPiece;
 
 namespace Player
@@ -132,7 +132,7 @@ namespace Player
 
 
         // Move Tools Methods:
-        public static void MoveRegularTool(ref Board io_GameBoard, ref CheckersPiece io_CurrentChecker, string i_PositionTo)
+        public static void MoveTool(ref Board io_GameBoard, ref CheckersPiece io_CurrentChecker, string i_PositionTo)
         {
             ushort nextRowIndex = (ushort)(i_PositionTo[k_RowIndex] - 'a');
             ushort nextColIndex = (ushort)(i_PositionTo[k_ColIndex] - 'A');
@@ -140,25 +140,6 @@ namespace Player
             // If there is not(!) a rival checker piece in the way.
             // Check valid move - include: inborder, valid input, is empty cell.
             // Validation.CheckValidMoveRegularTool(io_GameBoard, i_CurrentPlayer, io_CurrentChecker, ref i_PositionFrom, ref i_PositionTo);
-
-            // Update board - new tool position.
-            io_GameBoard.UpdateBoardAccordingToPlayersMove(
-                io_CurrentChecker.RowIndex,
-                io_CurrentChecker.ColIndex,
-                nextRowIndex,
-                nextColIndex);
-
-            io_CurrentChecker.ChangePosition(nextRowIndex, nextColIndex);
-        }
-
-        public static void MoveKingTool(ref Board io_GameBoard, ref CheckersPiece io_CurrentChecker, string i_PositionTo)
-        {
-            ushort nextRowIndex = (ushort)(i_PositionTo[k_RowIndex] - 'a');
-            ushort nextColIndex = (ushort)(i_PositionTo[k_ColIndex] - 'A');
-
-            // If there is not(!) a rival checker piece in the way.
-            // Check valid move - include: inborder, valid input, is empty cell.
-            // Validation.CheckValidMoveKingTool(io_GameBoard, i_CurrentPlayer, io_CurrentChecker, ref i_PositionFrom, ref i_PositionTo);
 
             // Update board - new tool position.
             io_GameBoard.UpdateBoardAccordingToPlayersMove(
