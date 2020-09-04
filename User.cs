@@ -1,22 +1,15 @@
 using System;
 using System.Collections.Generic;
 using CheckerPiece;
-using CheckersBoard;
-using UI;
+using GameBoard;
+
 namespace Player
 {
     public struct User
     {
         // Constants:
-        private const char k_Quit = 'Q';
-        private const char k_Yes = 'Y';
-        private const char k_Empty = ' ';
         private const short k_RowIndex = 1;
         private const short k_ColIndex = 0;
-        private const char k_MoveUp = 'X';
-        private const char k_MoveDown = 'O';
-        private const char k_MoveUpKing = 'K';
-        private const char k_MoveDownKing = 'U';
 
         // Data members:
         private readonly string m_Name;
@@ -115,7 +108,7 @@ namespace Player
         // Methods:
         public void InitializeCheckersArray(ushort i_BoardSize)
         {
-            int sizeOfPieces = ((i_BoardSize / 2) * 3);
+            int sizeOfPieces = ((i_BoardSize / 2) * (i_BoardSize / 2 - 1));
 
             m_CheckersPiece = new List<CheckersPiece>(sizeOfPieces);
             initializePositions(i_BoardSize);
@@ -139,7 +132,7 @@ namespace Player
                         setSecondToolPosition(i_BoardSize, i, j, ref toolIndex);
                     }
 
-                    if (toolIndex == (i_BoardSize / 2) * 3)
+                    if (toolIndex == (i_BoardSize / 2) * (i_BoardSize / 2 - 1))
                     {
                         reachLastIndex = true;
                         break;
@@ -235,7 +228,7 @@ namespace Player
             else
             {
                 // If the player still have moves to do.
-                if (Moves == null || m_CheckersPiece.Count == 0)
+                if (Moves.Keys.Count == 0 || m_CheckersPiece.Count == 0)
                 {
                     isGameOver = true;
                 }
@@ -332,9 +325,9 @@ namespace Player
                 ref io_RivalChecker))
             {
                 Console.WriteLine("Invalid move. player must capture.");
-                string move = UserInterface.GetValidMove(i_GameBoard);
-                Validation.ParsePositions(move, ref io_PositionFrom, ref io_PositionTo);
-                //Validation.UserTurnConversation(Name, ref io_PositionFrom, ref io_PositionTo);
+                //string move = UserInterface.GetValidMove(i_GameBoard);
+                //Validation.ParsePositions(move, ref io_PositionFrom, ref io_PositionTo);
+                Validation.UserTurnConversation(Name, ref io_PositionFrom, ref io_PositionTo);
             }
         }
 
@@ -427,9 +420,9 @@ namespace Player
             while (!isValidMove(i_GameBoard, io_PositionFrom, io_PositionTo, ref io_CurrentChecker))
             {
                 Console.WriteLine("Invalid move. player must move with to free positions.");
-                string move = UserInterface.GetValidMove(i_GameBoard);
-                Validation.ParsePositions(move, ref io_PositionFrom, ref io_PositionTo);
-                //Validation.UserTurnConversation(Name, ref io_PositionFrom, ref io_PositionTo);
+                //string move = UserInterface.GetValidMove(i_GameBoard);
+                // Validation.ParsePositions(move, ref io_PositionFrom, ref io_PositionTo);
+                Validation.UserTurnConversation(Name, ref io_PositionFrom, ref io_PositionTo);
             }
         }
 
@@ -476,12 +469,12 @@ namespace Player
         {
             if (!io_CurrentChecker.IsKing)
             {
-                MoveUtils.MoveRegularTool(ref io_GameBoard, ref io_CurrentChecker, i_PositionTo);
+                MoveUtils.MoveTool(ref io_GameBoard, ref io_CurrentChecker, i_PositionTo);
                 MakeToolAKing(io_GameBoard, ref io_CurrentChecker);
             }
             else
             {
-                MoveUtils.MoveKingTool(ref io_GameBoard, ref io_CurrentChecker, i_PositionTo);
+                MoveUtils.MoveTool(ref io_GameBoard, ref io_CurrentChecker, i_PositionTo);
             }
         }
 
@@ -493,12 +486,12 @@ namespace Player
 
             if (!io_CurrentChecker.IsKing)
             {
-                MoveUtils.MoveRegularTool(ref io_GameBoard, ref io_CurrentChecker, positions[1]);
+                MoveUtils.MoveTool(ref io_GameBoard, ref io_CurrentChecker, positions[1]);
                 MakeToolAKing(io_GameBoard, ref io_CurrentChecker);
             }
             else
             {
-                MoveUtils.MoveKingTool(ref io_GameBoard, ref io_CurrentChecker, positions[1]);
+                MoveUtils.MoveTool(ref io_GameBoard, ref io_CurrentChecker, positions[1]);
             }
         }
 
