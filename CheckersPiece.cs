@@ -1,5 +1,5 @@
 using System;
-using CheckersBoard;
+using GameBoard;
 
 namespace CheckerPiece
 {
