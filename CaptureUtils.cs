@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CheckerPiece;
-using CheckersBoard;
+using GameBoard;
 
 namespace Player
 {
