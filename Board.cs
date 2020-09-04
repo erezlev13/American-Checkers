@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace CheckersBoard
+namespace GameBoard
 {
     public class Board
     {
